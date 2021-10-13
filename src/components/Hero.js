@@ -20,6 +20,12 @@ export default function Hero({data}) {
               Programador
             </h1>
           </RainbowHighlight>
+          <br />
+          <RainbowHighlight color={colors[2]}>
+            <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
+              Autodidacta
+            </h1>
+          </RainbowHighlight>
 
         </RoughNotationGroup>
       </div>

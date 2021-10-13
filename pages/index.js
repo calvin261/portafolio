@@ -4,7 +4,7 @@ import ContainerBlock from "../src/components/ContainerBlock";
 import Hero from "../src/components/Hero";
 import LatestCode from "../src/components/LatestCode";
 
-export default function Home({ data, repositories  }) {
+export default function Home({ data, repositories }) {
   return (
     <ContainerBlock
       title="Jefferson Jacome - Desarrollador Web"
@@ -20,6 +20,7 @@ export default function Home({ data, repositories  }) {
 export async function getStaticProps(context) {
   const res = await fetch(`https://api.github.com/users/calvin261`);
   const data = await res.json();
+
   // const data = {
   //   avatar_url: "https://avatars.githubusercontent.com/u/63080590?v=4",
   //   bio: "Backend Developer || PHP || NodeJS || React || Angular",
@@ -58,10 +59,11 @@ export async function getStaticProps(context) {
   //   url: "https://api.github.com/users/calvin261",
   // };
 
-  const repositories = await getLatestRepos(
-    "calvin261",
-    process.env.GITHUB_AUTH_TOKEN
-  );
+  const res2 = await fetch('https://api.github.com/search/repositories?q=user:calvin261+sort:author-date-asc')
+  const data2 = await res2.json();
+  let repos = data2.items
+  let latestSixRepos = repos.splice(0, 6);
+  const repositories = latestSixRepos;
   if (!data) {
     return {
       notFound: true,

@@ -17,16 +17,17 @@ const getLatestRepos = async (usern, token) => {
           },
         }
       );
-      let repos = res.data.items;
+      let repos = res.items;
       let latestSixRepos = repos.splice(0, 6);
-      // console.log("LATEST 6 repos", latestSixRepos);
+      console.log("LATEST 6 repos", latestSixRepos);
       return latestSixRepos;
     } else {
       const res = await axios.get(
         `https://api.github.com/search/repositories?q=user:${username}+sort:author-date-asc`
       );
-      let repos = res.data.items;
+      let repos = res.items;
       let latestSixRepos = repos.splice(0, 6);
+      console.log("PPPPPPPPP", latestSixRepos);
       return latestSixRepos;
     }
   } catch (err) {
