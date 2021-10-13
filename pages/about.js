@@ -1,22 +1,16 @@
-import getLatestRepos from "../services/getLatestRepos";
+
+import AboutMe from "../src/components/AboutMe";
 import ContainerBlock from "../src/components/ContainerBlock";
 
-import Hero from "../src/components/Hero";
-import LatestCode from "../src/components/LatestCode";
-
-export default function Home({ data, repositories  }) {
+export default function about({data}) {
   return (
-    <ContainerBlock
-      title="Jefferson Jacome - Desarrollador Web"
-      description="Tengo experiencia por alrededor de 3 años"
-      data={data}
-    >
-      <Hero data={data} />
-      <LatestCode repositories={repositories} />
+    <ContainerBlock title="Jefferson Jacome - Desarrollador Web"
+    description="Tengo experiencia por alrededor de 3 años"
+    data={data} >
+      <AboutMe />
     </ContainerBlock>
   );
 }
-
 export async function getStaticProps(context) {
   const res = await fetch(`https://api.github.com/users/calvin261`);
   const data = await res.json();
@@ -58,10 +52,6 @@ export async function getStaticProps(context) {
   //   url: "https://api.github.com/users/calvin261",
   // };
 
-  const repositories = await getLatestRepos(
-    "calvin261",
-    process.env.GITHUB_AUTH_TOKEN
-  );
   if (!data) {
     return {
       notFound: true,
@@ -69,6 +59,6 @@ export async function getStaticProps(context) {
   }
 
   return {
-    props: { data, repositories }, // will be passed to the page component as props
+    props: { data }, // will be passed to the page component as props
   };
 }
