@@ -1,19 +1,17 @@
-const colors = require("tailwindcss/colors");
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: "class", // or 'media' or 'class'
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
-      transitionDuration: {
-        0: "0ms",
-        2000: "2000ms",
-        4000: "4000ms",
+      colors: {
+        primary: '#0070f3',
+        secondary: '#6c757d',
       },
     },
   },
-  variants: {
-    extend: {},
-    display: ["responsive", "group-hover", "group-focus"],
-  },
   plugins: [],
+  darkMode: 'class',
 }

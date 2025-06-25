@@ -1,7 +1,13 @@
 import { RoughNotation } from "react-rough-notation";
+import { ReactNode } from "react";
 
-export const RainbowHighlight = ({ color, children }) => {
-  const animationDuration = Math.floor(30 * children.length);
+interface RainbowHighlightProps {
+  color: string;
+  children: ReactNode;
+}
+
+export const RainbowHighlight = ({ color, children }: RainbowHighlightProps) => {
+  const animationDuration = Math.floor(30 * (children?.toString().length || 0));
 
   return (
     <RoughNotation
@@ -15,4 +21,4 @@ export const RainbowHighlight = ({ color, children }) => {
       {children}
     </RoughNotation>
   );
-};
+}; 

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import 'font.css';
+@import 'home.css';
 
 html,
 body {

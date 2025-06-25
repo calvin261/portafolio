@@ -1,38 +1,53 @@
-import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
+"use client";
+
+import { RoughNotationGroup } from "react-rough-notation";
 import { RainbowHighlight } from "./RainbowHighlight";
 
-export default function Hero({data}) {
-  const colors = ["#F59E0B", "#84CC16", "#10B981", "#3B82F6"];
+
+interface HeroData {
+  avatar_url: string;
+}
+
+interface HeroProps {
+  data: HeroData;
+}
+
+const titles = [
+  { text: "Desarrollador", color: "#F59E0B" },
+  { text: "Programador", color: "#84CC16" },
+  { text: "Autodidacta", color: "#10B981" },
+];
+
+export default function Hero({ data }: HeroProps) {
   return (
     <div className="flex flex-row justify-center items-start overflow-hidden">
       {/* Text container */}
-
       <div className="w-full md:w-1/2 mx-auto text-center md:text-left lg:p-20">
         <RoughNotationGroup show={true}>
-          <RainbowHighlight color={colors[0]}>
-            <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
-              Desarrollador
-            </h1>
-          </RainbowHighlight>
-          <br />
-          <RainbowHighlight color={colors[1]}>
-            <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
-              Programador
-            </h1>
-          </RainbowHighlight>
-          <br />
-          <RainbowHighlight color={colors[2]}>
-            <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
-              Autodidacta
-            </h1>
-          </RainbowHighlight>
-
+          {titles.map((title, index) => (
+            <div key={index}>
+              <RainbowHighlight color={title.color}>
+                <h1 className="text-4xl md:text-8xl font-bold text-gray-700 dark:text-gray-200 my-2">
+                  {title.text}
+                </h1>
+              </RainbowHighlight>
+              {index < titles.length - 1 && <br />}
+            </div>
+          ))}
         </RoughNotationGroup>
       </div>
+
       {/* Image container */}
       <div className="hidden lg:block relative w-full md:w-1/2 -mr-40 mt-20">
-        <div className="w-3/4 ">
-          <img src={data.avatar_url} alt="avatar" className=" shadow" />
+        <div className="w-3/4">
+          <img 
+            src={data.avatar_url} 
+            alt="avatar" 
+            className="shadow" 
+            width={400}
+            height={400}
+            loading="eager"
+          />
           <div className="flex flex-row justify-between mt-4">
             <div className="flex flex-row space-x-4">
               <svg
@@ -42,6 +57,7 @@ export default function Hero({data}) {
                 fill="currentColor"
                 className="bi bi-arrow-90deg-up"
                 viewBox="0 0 16 16"
+                aria-hidden="true"
               >
                 <path
                   fillRule="evenodd"
@@ -55,4 +71,4 @@ export default function Hero({data}) {
       </div>
     </div>
   );
-}
+} 

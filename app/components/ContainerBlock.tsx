@@ -1,16 +1,50 @@
-import { useRouter } from "next/dist/client/router";
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import Head from "next/head";
-import Footer from "./Footer";
+import { ReactNode } from "react";
 import Navbar from "./Navbar";
-export default function ContainerBlock({ children, ...customMeta }) {
-  const router = useRouter();
-  const meta = {
-    title: "Jefferson Jacome - Desarrollador Web",
-    description: `Tengo experiencia por alrededor de 3 años`,
-    image: "/avatar.png",
-    type: "website",
+import Footer from "./Footer";
+
+interface NavbarData {
+  name: string;
+  bio: string;
+}
+
+interface MetaData {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  date?: string;
+  data: NavbarData;
+}
+
+interface ContainerBlockProps {
+  children: ReactNode;
+  customMeta?: Partial<MetaData>;
+}
+
+const defaultMeta: MetaData = {
+  title: "Jefferson Jacome - Desarrollador Web",
+  description: "Tengo experiencia por alrededor de 3 años",
+  image: "/avatar.png",
+  type: "website",
+  data: {
+    name: "Jefferson Jacome",
+    bio: "Desarrollador Web",
+  },
+};
+
+export default function ContainerBlock({ children, customMeta = {} }: ContainerBlockProps) {
+  const pathname = usePathname();
+  const meta: MetaData = {
+    ...defaultMeta,
     ...customMeta,
+    data: customMeta.data || defaultMeta.data,
   };
+
   return (
     <div>
       <Head>
@@ -19,11 +53,11 @@ export default function ContainerBlock({ children, ...customMeta }) {
         <meta content={meta.description} name="description" />
         <meta
           property="og:url"
-          content={`https://yourwebsite.com${router.asPath}`}
+          content={`https://yourwebsite.com${pathname}`}
         />
         <link
           rel="canonical"
-          href={`https://yourwebsite.com${router.asPath}`}
+          href={`https://yourwebsite.com${pathname}`}
         />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Jefferson Jacome | Portafolio" />
@@ -46,4 +80,4 @@ export default function ContainerBlock({ children, ...customMeta }) {
       </main>
     </div>
   );
-}
+} 
